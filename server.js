@@ -1,0 +1,158 @@
+'use strict';
+
+const express = require('express');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+const { DATABASE_URL, PORT } = require('./config');
+const { Goal } = require('./models');
+
+const app = express();
+
+app.use(morgan('common'));
+app.use(express.json());
+app.use(express.static('public'));
+
+
+app.get('/goals', (req, res) => {
+  Goal
+  .find()  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+
+app.get('/goals/:id', (req, res) => {
+  Goal
+    .findById(req.params.id)
+    .then(item => {
+      res.json({
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'something went horribly awry' });
+    });
+});
+
+
+app.post('/goals', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+
+app.put('/goals/:id', (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+
+  const updated = {};
+  const updateableFields = ['category', 'goal'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  Goal
+    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+    .then(updatedPost => res.status(200).json({
+      id: updatedPost.id,
+      category: updatedPost.category,
+      goal: updatedPost.goal
+    }))
+    .catch(err => res.status(500).json({ message: err }));
+});
+
+
+app.delete('/goals/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+
+app.use('*', function (req, res) {
+  res.status(404).json({ message: 'Not Found' });
+});
+
+
+let server;
+
+function runServer(databaseUrl, port = PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
+    });
+  });
+}
+
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  });
+}
+
+if (require.main === module) {
+  runServer(DATABASE_URL).catch(err => console.error(err));
+}
+
+module.exports = { runServer, app, closeServer };
