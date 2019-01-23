@@ -34,18 +34,18 @@
 {"category": "physical", "goal": "Go cycling"}
 {"category": "physical", "goal": "Go to the gym weekly"}
 {"category": "physical", "goal": "Maintain a healthy weight"}
-{"category": "personal development", "goal": "Read Weekly"}
-{"category": "personal development", "goal": "Create better relationships"}
-{"category": "personal development", "goal": "Learn something new"}
-{"category": "personal development", "goal": "Improve body language"}
-{"category": "personal development", "goal": "Become a better communicator"}
-{"category": "personal development", "goal": "Become a better listener"}
-{"category": "personal development", "goal": "Increase social skill"}
-{"category": "personal development", "goal": "Manage stress better"}
-{"category": "personal development", "goal": "Be more compassionate"}
-{"category": "personal development", "goal": "Be more empathetic"}
-{"category": "personal development", "goal": "Be kinder"}
-{"category": "personal development", "goal": "Be a better listener"}
+{"category": "personal-development", "goal": "Read Weekly"}
+{"category": "personal-development", "goal": "Create better relationships"}
+{"category": "personal-development", "goal": "Learn something new"}
+{"category": "personal-development", "goal": "Improve body language"}
+{"category": "personal-development", "goal": "Become a better communicator"}
+{"category": "personal-development", "goal": "Become a better listener"}
+{"category": "personal-development", "goal": "Increase social skill"}
+{"category": "personal-development", "goal": "Manage stress better"}
+{"category": "personal-development", "goal": "Be more compassionate"}
+{"category": "personal-development", "goal": "Be more empathetic"}
+{"category": "personal-development", "goal": "Be kinder"}
+{"category": "personal-development", "goal": "Be a better listener"}
 {"category": "spiritual", "goal": "Take spiritual journey more seriously"}
 {"category": "spiritual", "goal": "Set spiritual goals"}
 {"category": "spiritual", "goal": "Complete one spiritual goal each week"}

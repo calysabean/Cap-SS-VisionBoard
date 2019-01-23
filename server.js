@@ -14,7 +14,6 @@ app.use(morgan('common'));
 app.use(express.json());
 app.use(express.static('public'));
 
-
 app.get('/goals', (req, res) => {
   Goal
   .find()  
@@ -103,6 +102,312 @@ app.put('/goals/:id', (req, res) => {
 
 
 app.delete('/goals/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+app.get('/career', (req, res) => {
+  Goal
+  .find({category: "career"})  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+app.post('/career', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+app.delete('/career/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+app.get('/financial', (req, res) => {
+  Goal
+  .find({category: "financial"})  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+app.post('/financial', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+app.delete('/financial/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+app.get('/physical', (req, res) => {
+  Goal
+  .find({category: "physical"})  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+app.post('/physical', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+app.delete('/physical/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+app.get('/personal-development', (req, res) => {
+  Goal
+  .find({category: "personal-development"})  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+app.post('/personal-development', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+app.delete('/personal-development/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+app.get('/spiritual', (req, res) => {
+  Goal
+  .find({category: "spiritual"})  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+app.post('/spiritual', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+app.delete('/spiritual/:id', (req, res) => {
+  Goal
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+      console.log(`Deleted  post with id \`${req.params.id}\``);
+      res.status(204).end();
+    });
+});
+
+app.get('/experiential', (req, res) => {
+  Goal
+  .find({category: "experiential"})  
+  .then(goals => {
+    console.log(goals);
+    res.json(goals.map(item => {
+      return {
+        id: item._id,
+        category: item.category,
+        goal: item.goal
+      };
+    }));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  });
+});
+
+app.post('/experiential', (req, res) => {
+  const requiredFields = ['category', 'goal'];
+  requiredFields.forEach(field => {
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`;
+      console.error(message);
+      return res.status(400).send(message);
+    }
+  });
+
+  Goal
+  .create({
+    category: req.body.category,
+    goal: req.body.goal
+  })
+  .then(goalS => res.status(201).json(goalS.serialize()))
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong' });
+  });
+
+});
+
+app.delete('/experiential/:id', (req, res) => {
   Goal
     .findByIdAndRemove(req.params.id)
     .then(() => {
