@@ -14,6 +14,7 @@ app.use(morgan('common'));
 app.use(express.json());
 app.use(express.static('public'));
 
+
 app.get('/goals', (req, res) => {
   Goal
   .find()  
