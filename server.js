@@ -3,6 +3,8 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const passport = require('passport');
+
 mongoose.Promise = global.Promise;
 
 const { DATABASE_URL, PORT } = require('./config');
@@ -14,6 +16,23 @@ app.use(morgan('common'));
 app.use(express.json());
 app.use(express.static('public'));
 
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  if (req.method === 'OPTIONS') {
+    return res.send(204);
+  }
+  next();
+});
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+app.get('/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
+});
 
 app.get('/goals', (req, res) => {
   Goal
