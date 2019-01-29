@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: TwKOdLQoF/oGMxfPeslaownuziCtL0LYFlYByXQukBoKYFyCR1icwhiGWFugcCnbG3DiLVunZJxopWJICX8HPHs3yLg9z3Op+CzxlgBwW9BgBDUjKuDFLe2EGrwpJsLpj1lUHeTR5xc50Li9l2LT32f+WQL9ybyilGnqlx2P6FsDFyHACce50isK6uzI4RD5tlaolgds9nSmcnGwp2kNZFpv8bdANed1lXzrfitrN+1x6XPTGbWWBYWW7VOuhBp/s+eny/qwKf5Ahdp1Bve5BjFZrtziWwIxgNPzIXe3T/r+eVw/DyzQUrkkTS0LmvWtPNCFSEx4GUmlWVTht+Z2DH52DHfWyXWUqpm75nF9MWVa7DFaf83OmeL8hWW0DnOFC9luC7swCYmrVeE1rzW5COGILz2a4PPC9z2DVkk5dC03zaH0FzQ8KetIHC5NIS80N15xLv/mojjY0hQPgX+JdhNd1R+tnHLPPaak7Ob8tda/0u2OEr16dJ4ZQVtdzuEATZeWjUIlqj4lT2hDBi2GjLcUJGo31IxbYWfgHCCXHLcTetUm0mK5EldD/vTFGui5Sd8qJGOcbAe7oLeBMnG1v8iSwIoZV/Aq0agwZe/faLnrbaI7ROSedP4ITEJkTR1aX+EKdogEK6mayITJCq4AjNKztpXBBi9Orf+lTT+xv90=
-  app: Cap-SS-VisionBoard
+  app: agile-depths-79462
   on:
     repo: calysabean/Cap-SS-VisionBoard
