@@ -23,7 +23,7 @@ describe('Goals', function() {
     return closeServer();
   });
 
-  /*it('should list items on GET', function() {
+  it('should list items on GET', function() {
    
     return chai.request(app)
       .get('/goals')
@@ -33,16 +33,19 @@ describe('Goals', function() {
         res.body.should.be.a('array');
         res.body.length.should.be.at.least(1);
         const expectedKeys = ['category', 'goal'];
+        console.log(res.body);
         res.body.forEach(function(item) {
           item.should.be.a('object');
           item.should.include.keys(expectedKeys);
+
         });
+
       });
-  });*/
+  });
 
   
   it('should add an item on POST', function() {
-    const newItem = {category: 'a', comments: [], goal: 'WIN'};
+   // const newItem = {category: 'a', comments: [], goal: 'WIN'};
     return chai.request(app)
       .post('/goals')
       .send(newItem)

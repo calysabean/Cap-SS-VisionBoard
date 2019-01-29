@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
+var cors = require('cors')
 
 mongoose.Promise = global.Promise;
 
@@ -16,7 +17,25 @@ app.use(morgan('common'));
 app.use(express.json());
 app.use(express.static('public'));
 
-app.use(function (req, res, next) {
+app.use(cors());
+
+var whitelist = ['/goals']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
+ 
+app.get('/goals/:id', cors(corsOptionsDelegate), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
+})
+
+// use cors middleware instead
+/*app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
@@ -24,15 +43,15 @@ app.use(function (req, res, next) {
     return res.send(204);
   }
   next();
-});
+});*/
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
+/*const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.get('/protected', jwtAuth, (req, res) => {
   return res.json({
     data: 'rosebud'
   });
-});
+});*/
 
 app.get('/goals', (req, res) => {
   Goal
@@ -120,8 +139,9 @@ app.put('/goals/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-
-app.delete('/goals/:id', (req, res) => {
+app.options('*', cors())
+app.options('/goals/:id', cors()) // enable pre-flight request for DELETE request
+app.delete('/goals/:id', cors(), (req, res) => {
   Goal
     .findByIdAndRemove(req.params.id)
     .then(() => {

@@ -8,35 +8,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="index.css" type="text/css">
   </head>
   <body>
-        <section>
-            <div class="openingBox">
-                <p>We all have goals and aspirations in life. The purpose of this app is to help individuals organize their ideas to create clear short-term or longterm goals.</p>
-                <button class="gallery">Click here! <br> Explore Museums!</button>
-                </div>
-              </section>        
-       
-         <section>
-            <div class="signUpBox">
-                <form role="form" action="https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search? " method="post" class="js-signup-form">
-                <legend>Search Local Museums!</legend>
-                  <label for="query">
-                  <input id="query" type="text" class="js-query" value="musuem" style="display:none" required>
-                </label>
-                  <label for="zipcode">
-                  <input id="zipcode" title="ZipCode Field" pattern="[0-9]{5}" type="text" class="js-query1" placeholder="Type zip" required>
-                </label>
-                  <button type="submit" class="submit">Search</button>
-                </form>
-               </div>
-         </section>
-      </main>
-    </div>
-    <script src="//code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-    <script src="/client.js"></script>
+       <section>
+            <div class="openingBox">
+            <p>We all have goals and aspirations in life. The purpose of this app is to help individuals organize their ideas to create clear short-term or longterm goals.</p>
+            </div>
+        </section>        
+               
+         <section>
+           <div class="signUpBox"> 
+           <form role="form" action="https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search? " method="post" class="js-signup-form">
+
+           <legend>Login</legend>
+           <label class="username1" for="username">Username
+           <input id="username" type="text" title="Username" class="u-name"  placeholder="Enter Username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+           </label>
+           
+           <label for="password">Password
+            <input id="password" title="Password"  type="text" class="p-word" placeholder="Enter Password" required>
+            </label>
+            
+        <a>      
+           <button type="submit" class="submit">Search</button>
+    </a>
+           </form>
+           </div>
+          </section>
+        
+    <script src="index.js"></script>
   </body>
 </html>
